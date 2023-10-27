@@ -48,12 +48,12 @@ public class CRMForm extends JFrame {
                 String email = emailField.getText();
                 String phone = phoneField.getText();
 
-                if (!isValidEmail(email)) {
+                if (!Utility.isValidEmail(email)) {
                     JOptionPane.showMessageDialog(CRMForm.this, "Invalid email format!", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                if (!isValidPhoneNumber(phone)) {
+                if (!Utility.isValidPhoneNumber(phone)) {
                     JOptionPane.showMessageDialog(CRMForm.this, "Invalid phone number format! It should be 10 digits long.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -120,13 +120,11 @@ public class CRMForm extends JFrame {
                 StringBuilder sb = new StringBuilder();
 
                 for (User user : userList) {
-                    if(user.getStatus().equals("Potential Lead")){
+                    if (user.getStatus().equals("Potential Lead")) {
                         countPl++;
-                    }
-                    else if (user.getStatus().equals("Future Opportunity")){
+                    } else if (user.getStatus().equals("Future Opportunity")) {
                         countFo++;
-                    }
-                    else {
+                    } else {
                         countRc++;
                     }
                 }
@@ -160,14 +158,6 @@ public class CRMForm extends JFrame {
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-    }
-
-    private boolean isValidEmail(String email) {
-        return email.matches("^[\\w.-]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-    }
-
-    private boolean isValidPhoneNumber(String phone) {
-        return phone.matches("\\d{10}");
     }
 
     public static void main(String[] args) {
