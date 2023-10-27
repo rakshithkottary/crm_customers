@@ -10,7 +10,6 @@ public class CRMForm extends JFrame {
     private JButton submitButton;
     private List<User> userList;
     private List<JRadioButton> radioButtons;
-    private JTextArea outputArea;
 
     public CRMForm() {
         userList = new ArrayList<>();
@@ -114,10 +113,31 @@ public class CRMForm extends JFrame {
                 JScrollPane userListScrollPane = new JScrollPane(userListArea);
                 userListFrame.add(userListScrollPane);
 
+                int countPl = 0;
+                int countFo = 0;
+                int countRc = 0;
+
                 StringBuilder sb = new StringBuilder();
+
+                for (User user : userList) {
+                    if(user.getStatus().equals("Potential Lead")){
+                        countPl++;
+                    }
+                    else if (user.getStatus().equals("Future Opportunity")){
+                        countFo++;
+                    }
+                    else {
+                        countRc++;
+                    }
+                }
+
+                sb.append("Potential Lead : ").append(countPl).append(", Future Opportunity : ").append(countFo).append(", Regular Customer : ").append(countRc).append("\n");
+                sb.append("********************************\n");
+
                 for (User user : userList) {
                     sb.append(user.toString()).append("\n");
                 }
+
                 userListArea.setText(sb.toString());
 
                 userListFrame.setSize(400, 400);
@@ -140,19 +160,6 @@ public class CRMForm extends JFrame {
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-    }
-
-    public void updateOutputArea() {
-        StringBuilder sbLeads = new StringBuilder("Potential Leads:\n");
-        StringBuilder sbOpportunities = new StringBuilder("Future Opportunities:\n");
-
-        for (User user : userList) {
-            if (user.getStatus().equals("Potential Lead")) {
-                sbLeads.append(user.toString()).append("\n");
-            } else if (user.getStatus().equals("Future Opportunity")) {
-                sbOpportunities.append(user.toString()).append("\n");
-            }
-        }
     }
 
     private boolean isValidEmail(String email) {
