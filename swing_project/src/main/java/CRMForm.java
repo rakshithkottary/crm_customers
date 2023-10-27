@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class CRMForm extends JFrame {
 
                 for (User existingUser : userList) {
                     if (existingUser.getEmail().equals(email) && existingUser.getPhone().equals(phone)) {
-                        JOptionPane.showMessageDialog(CRMForm.this, "User already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(CRMForm.this, "User already submitted response!", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }
@@ -72,8 +73,6 @@ public class CRMForm extends JFrame {
                     System.out.println(us);
                 }
                 System.out.println("*************************************");
-
-                updateOutputArea();
             }
         });
 
@@ -102,17 +101,40 @@ public class CRMForm extends JFrame {
             panel.add(noButton);
             add(panel);
         }
-
-        add(submitButton);
-
         setTitle("CRM Feedback Form");
         setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        outputArea = new JTextArea(10, 30);
-        JScrollPane scrollPane = new JScrollPane(outputArea);
-        add(scrollPane);
+        JButton viewCustomersButton = new JButton("View Customers");
+        viewCustomersButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame userListFrame = new JFrame("Customer List");
+                JTextArea userListArea = new JTextArea(10, 30);
+                JScrollPane userListScrollPane = new JScrollPane(userListArea);
+                userListFrame.add(userListScrollPane);
+
+                StringBuilder sb = new StringBuilder();
+                for (User user : userList) {
+                    sb.append(user.toString()).append("\n");
+                }
+                userListArea.setText(sb.toString());
+
+                userListFrame.setSize(400, 400);
+                userListFrame.setVisible(true);
+            }
+        });
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+        submitButton.setPreferredSize(new Dimension(150, 30));
+        viewCustomersButton.setPreferredSize(new Dimension(150, 30));
+
+        buttonPanel.add(submitButton);
+        buttonPanel.add(viewCustomersButton);
+
+        add(buttonPanel, BorderLayout.SOUTH);
 
         setTitle("CRM Feedback Form");
         setSize(400, 500);
@@ -131,8 +153,6 @@ public class CRMForm extends JFrame {
                 sbOpportunities.append(user.toString()).append("\n");
             }
         }
-
-        outputArea.setText(sbLeads.toString() + "\n" + sbOpportunities.toString());
     }
 
     private boolean isValidEmail(String email) {
