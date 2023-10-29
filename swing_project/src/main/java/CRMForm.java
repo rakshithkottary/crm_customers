@@ -11,6 +11,16 @@ public class CRMForm extends JFrame {
     private List<User> userList;
     private List<JRadioButton> radioButtons;
 
+    private void resetFields() {
+        nameField.setText("");
+        emailField.setText("");
+        phoneField.setText("");
+
+        for (JRadioButton radioButton : radioButtons) {
+            radioButton.setSelected(false);
+        }
+    }
+
     public CRMForm(List<User> userList) {
         this.userList = userList;
         radioButtons = new ArrayList<>();
@@ -72,6 +82,8 @@ public class CRMForm extends JFrame {
                     System.out.println(us);
                 }
                 System.out.println("*************************************");
+
+                resetFields();
 
                 JOptionPane.showMessageDialog(CRMForm.this, "Successfully submitted!", "Submission Message", JOptionPane.INFORMATION_MESSAGE);
             }
