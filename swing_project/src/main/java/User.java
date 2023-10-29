@@ -4,11 +4,22 @@ class User {
     private String phone;
     private String status;
 
-    public User(String name, String email, String phone, String status) {
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private String comment;
+
+    public User(String name, String email, String phone, String status, String comment) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.status = status;
+        this.comment = comment;
     }
 
     @Override

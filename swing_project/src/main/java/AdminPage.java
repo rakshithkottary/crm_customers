@@ -9,7 +9,7 @@ public class AdminPage extends JFrame {
     private List<User> adminUserList;
     private JTable table;
     private JScrollPane scrollPane;
-    private JTextField nameField, emailField, phoneField;
+    private JTextField nameField, emailField, phoneField, expenseField;
 
     public AdminPage(List<User> userList) {
         this.adminUserList = new ArrayList<>(userList); // Create a separate list for the admin page
@@ -21,6 +21,7 @@ public class AdminPage extends JFrame {
         nameField = new JTextField(15);
         emailField = new JTextField(15);
         phoneField = new JTextField(15);
+        expenseField = new JTextField(15);
 
         inputPanel.add(new JLabel("Name:"));
         inputPanel.add(nameField);
@@ -28,6 +29,8 @@ public class AdminPage extends JFrame {
         inputPanel.add(emailField);
         inputPanel.add(new JLabel("Phone:"));
         inputPanel.add(phoneField);
+        inputPanel.add(new JLabel("Expense:"));
+        inputPanel.add(expenseField);
         panel.add(inputPanel);
 
         JPanel buttonPanel = new JPanel();
@@ -39,7 +42,10 @@ public class AdminPage extends JFrame {
                 String name = nameField.getText();
                 String email = emailField.getText();
                 String phone = phoneField.getText();
-                User user = new User(name, email, phone, "Regular Customer");
+                String expenseStr = expenseField.getText();
+                double expense = Double.parseDouble(expenseStr);
+                String comment = (expense > 10000) ? "User eligible" : "User not eligible";
+                User user = new User(name, email, phone, "Regular Customer", comment);
                 adminUserList.add(user);
                 updateTableData();
             }
@@ -115,13 +121,14 @@ public class AdminPage extends JFrame {
 
         panel.add(buttonPanel);
 
-        String[] columnNames = {"Name", "Email", "Phone"};
-        String[][] data = new String[adminUserList.size()][3];
+        String[] columnNames = {"Name", "Email", "Phone", "Comment"};
+        String[][] data = new String[adminUserList.size()][4];
         for (int i = 0; i < adminUserList.size(); i++) {
             User user = adminUserList.get(i);
             data[i][0] = user.getName();
             data[i][1] = user.getEmail();
             data[i][2] = user.getPhone();
+            data[i][3] = user.getComment();
         }
         table = new JTable(data, columnNames);
         scrollPane = new JScrollPane(table);
@@ -135,15 +142,35 @@ public class AdminPage extends JFrame {
     }
 
     private void updateTableData() {
-        String[] columnNames = {"Name", "Email", "Phone"};
-        String[][] data = new String[adminUserList.size()][3];
+        String[] columnNames = {"Name", "Email", "Phone", "Comment"};
+        String[][] data = new String[adminUserList.size()][4];
         for (int i = 0; i < adminUserList.size(); i++) {
             User user = adminUserList.get(i);
             data[i][0] = user.getName();
             data[i][1] = user.getEmail();
             data[i][2] = user.getPhone();
+            data[i][3] = user.getComment();
         }
         table = new JTable(data, columnNames);
         scrollPane.setViewportView(table);
     }
+
+    public static void main(String[] args) {
+        List<User> userList = new ArrayList<>();
+
+        // Creating an instance of CRMForm
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new CRMForm(userList);
+            }
+        });
+
+        // Creating an instance of AdminPage
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new AdminPage(userList);
+            }
+        });
+    }
 }
+
