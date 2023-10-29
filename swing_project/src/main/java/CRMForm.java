@@ -11,8 +11,8 @@ public class CRMForm extends JFrame {
     private List<User> userList;
     private List<JRadioButton> radioButtons;
 
-    public CRMForm() {
-        userList = new ArrayList<>();
+    public CRMForm(List<User> userList) {
+        this.userList = userList;
         radioButtons = new ArrayList<>();
 
         nameLabel = new JLabel("Name:");
@@ -72,6 +72,8 @@ public class CRMForm extends JFrame {
                     System.out.println(us);
                 }
                 System.out.println("*************************************");
+
+                JOptionPane.showMessageDialog(CRMForm.this, "Successfully submitted!", "Submission Message", JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
@@ -105,52 +107,13 @@ public class CRMForm extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        JButton viewCustomersButton = new JButton("View Customers");
-        viewCustomersButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFrame userListFrame = new JFrame("Customer List");
-                JTextArea userListArea = new JTextArea(10, 30);
-                JScrollPane userListScrollPane = new JScrollPane(userListArea);
-                userListFrame.add(userListScrollPane);
-
-                int countPl = 0;
-                int countFo = 0;
-                int countRc = 0;
-
-                StringBuilder sb = new StringBuilder();
-
-                for (User user : userList) {
-                    if (user.getStatus().equals("Potential Lead")) {
-                        countPl++;
-                    } else if (user.getStatus().equals("Future Opportunity")) {
-                        countFo++;
-                    } else {
-                        countRc++;
-                    }
-                }
-
-                sb.append("Potential Lead : ").append(countPl).append(", Future Opportunity : ").append(countFo).append(", Regular Customer : ").append(countRc).append("\n");
-                sb.append("********************************\n");
-
-                for (User user : userList) {
-                    sb.append(user.toString()).append("\n");
-                }
-
-                userListArea.setText(sb.toString());
-
-                userListFrame.setSize(400, 400);
-                userListFrame.setVisible(true);
-            }
-        });
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         submitButton.setPreferredSize(new Dimension(150, 30));
-        viewCustomersButton.setPreferredSize(new Dimension(150, 30));
 
         buttonPanel.add(submitButton);
-        buttonPanel.add(viewCustomersButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -158,9 +121,5 @@ public class CRMForm extends JFrame {
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        new CRMForm();
     }
 }
