@@ -75,7 +75,7 @@ public class CRMForm extends JFrame {
                     }
                 }
 
-                User user = new User(name, email, phone, status);
+                User user = new User(name, email, phone, status, "comment"); // Updated here
                 userList.add(user);
 
                 for (User us : userList) {
@@ -88,7 +88,6 @@ public class CRMForm extends JFrame {
                 JOptionPane.showMessageDialog(CRMForm.this, "Successfully submitted!", "Submission Message", JOptionPane.INFORMATION_MESSAGE);
             }
         });
-
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         add(nameLabel);
@@ -114,11 +113,6 @@ public class CRMForm extends JFrame {
             panel.add(noButton);
             add(panel);
         }
-        setTitle("CRM Feedback Form");
-        setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
