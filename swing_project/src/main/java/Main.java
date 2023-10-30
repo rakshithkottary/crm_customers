@@ -2,21 +2,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    private static List<User> userList = new ArrayList<>(); // Shared user list
+
     public static void main(String[] args) {
-        List<User> userList = new ArrayList<>();
-
-        // Creating an instance of CRMForm
+        // Creating an instance of LandingPage
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new CRMForm(userList);
+                new LandingPage(userList);
             }
         });
+    }
 
-        // Creating an instance of AdminPage
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new AdminPage(userList);
-            }
-        });
+    public static List<User> getUserList() {
+        return userList;
     }
 }

@@ -7,12 +7,16 @@ import java.util.List;
 
 public class AdminPage extends JFrame {
     private List<User> adminUserList;
+    private List<User> viewCustomerList;
     private JTable table;
     private JScrollPane scrollPane;
     private JTextField nameField, emailField, phoneField, expenseField;
+    private JFrame landingPage;
 
-    public AdminPage(List<User> userList) {
-        this.adminUserList = new ArrayList<>(userList); // Create a separate list for the admin page
+    public AdminPage(List<User> adminUserList, List<User> viewCustomerList, JFrame landingPage) {
+        this.adminUserList = new ArrayList<>(adminUserList);
+        this.viewCustomerList = new ArrayList<>(viewCustomerList);
+        this.landingPage = landingPage;
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -47,7 +51,7 @@ public class AdminPage extends JFrame {
                 String comment = (expense > 10000) ? "User eligible" : "User not eligible";
                 User user = new User(name, email, phone, "Regular Customer", comment);
                 adminUserList.add(user);
-                updateTableData();
+                updateTableData(adminUserList);
             }
         });
 
@@ -64,7 +68,7 @@ public class AdminPage extends JFrame {
                     double expense = Double.parseDouble(expenseStr);
                     String comment = (expense > 10000) ? "User eligible" : "User not eligible";
                     user.setComment(comment);
-                    updateTableData();
+                    updateTableData(adminUserList);
                 }
             }
         });
@@ -75,7 +79,7 @@ public class AdminPage extends JFrame {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
                     adminUserList.remove(selectedRow);
-                    updateTableData();
+                    updateTableData(adminUserList);
                 }
             }
         });
@@ -94,7 +98,7 @@ public class AdminPage extends JFrame {
 
                 StringBuilder sb = new StringBuilder();
 
-                for (User user : userList) {
+                for (User user : viewCustomerList) {
                     if (user.getStatus().equals("Potential Lead")) {
                         countPl++;
                     } else if (user.getStatus().equals("Future Opportunity")) {
@@ -107,7 +111,7 @@ public class AdminPage extends JFrame {
                 sb.append("Potential Lead : ").append(countPl).append(", Future Opportunity : ").append(countFo).append(", Regular Customer : ").append(countRc).append("\n");
                 sb.append("********************************\n");
 
-                for (User user : userList) {
+                for (User user : viewCustomerList) {
                     sb.append(user.toString()).append("\n");
                 }
 
@@ -118,10 +122,19 @@ public class AdminPage extends JFrame {
             }
         });
 
+        JButton backButton = new JButton("Back to Landing Page");
+        backButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                landingPage.setVisible(true);
+                AdminPage.this.dispose();
+            }
+        });
+
         buttonPanel.add(addButton);
         buttonPanel.add(updateButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(viewCustomersButton);
+        buttonPanel.add(backButton);
 
         panel.add(buttonPanel);
 
@@ -141,15 +154,15 @@ public class AdminPage extends JFrame {
         add(panel);
         setTitle("Admin Page");
         setSize(600, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    private void updateTableData() {
+    private void updateTableData(List<User> userList) {
         String[] columnNames = {"Name", "Email", "Phone", "Comment"};
-        String[][] data = new String[adminUserList.size()][4];
-        for (int i = 0; i < adminUserList.size(); i++) {
-            User user = adminUserList.get(i);
+        String[][] data = new String[userList.size()][4];
+        for (int i = 0; i < userList.size(); i++) {
+            User user = userList.get(i);
             data[i][0] = user.getName();
             data[i][1] = user.getEmail();
             data[i][2] = user.getPhone();
@@ -158,23 +171,4 @@ public class AdminPage extends JFrame {
         table = new JTable(data, columnNames);
         scrollPane.setViewportView(table);
     }
-
-    public static void main(String[] args) {
-        List<User> userList = new ArrayList<>();
-
-        // Creating an instance of CRMForm
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new CRMForm(userList);
-            }
-        });
-
-        // Creating an instance of AdminPage
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new AdminPage(userList);
-            }
-        });
-    }
 }
-

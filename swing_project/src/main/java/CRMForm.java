@@ -21,7 +21,7 @@ public class CRMForm extends JFrame {
         }
     }
 
-    public CRMForm(List<User> userList) {
+    public CRMForm(List<User> userList, JFrame previousFrame) {
         this.userList = userList;
         radioButtons = new ArrayList<>();
 
@@ -86,6 +86,9 @@ public class CRMForm extends JFrame {
                 resetFields();
 
                 JOptionPane.showMessageDialog(CRMForm.this, "Successfully submitted!", "Submission Message", JOptionPane.INFORMATION_MESSAGE);
+
+                previousFrame.setVisible(true); // Show the previous frame (LandingPage)
+                dispose(); // Close the current frame (CRMForm)
             }
         });
 
