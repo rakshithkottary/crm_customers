@@ -98,21 +98,12 @@ public class CRMForm extends JFrame {
         add(phoneField);
         add(questionLabel);
 
-        for (int i = 1; i <= 5; i++) {
-            JPanel panel = new JPanel();
-            JLabel question = new JLabel("Question " + i + ":");
-            JRadioButton yesButton = new JRadioButton("Yes");
-            JRadioButton noButton = new JRadioButton("No");
-            ButtonGroup group = new ButtonGroup();
-            group.add(yesButton);
-            group.add(noButton);
-            radioButtons.add(yesButton);
+        questionButton("Question 1 :");
+        questionButton("Question 2 :");
+        questionButton("Question 3 :");
+        questionButton("Question 4 :");
+        questionButton("Question 5 :");
 
-            panel.add(question);
-            panel.add(yesButton);
-            panel.add(noButton);
-            add(panel);
-        }
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
@@ -128,4 +119,21 @@ public class CRMForm extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
+
+    public void questionButton(String questionString){
+        JPanel panel = new JPanel();
+        JLabel question = new JLabel(questionString);
+        JRadioButton yesButton = new JRadioButton("Yes");
+        JRadioButton noButton = new JRadioButton("No");
+        ButtonGroup group = new ButtonGroup();
+        group.add(yesButton);
+        group.add(noButton);
+        radioButtons.add(yesButton);
+
+        panel.add(question);
+        panel.add(yesButton);
+        panel.add(noButton);
+        add(panel);
+    }
+
 }
