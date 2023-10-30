@@ -60,6 +60,10 @@ public class AdminPage extends JFrame {
                     user.setName(nameField.getText());
                     user.setEmail(emailField.getText());
                     user.setPhone(phoneField.getText());
+                    String expenseStr = expenseField.getText();
+                    double expense = Double.parseDouble(expenseStr);
+                    String comment = (expense > 10000) ? "User eligible" : "User not eligible";
+                    user.setComment(comment);
                     updateTableData();
                 }
             }
