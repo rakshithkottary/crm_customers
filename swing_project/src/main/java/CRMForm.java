@@ -4,7 +4,11 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class CRMForm extends JFrame {
+
+
     private JLabel nameLabel, emailLabel, phoneLabel, questionLabel;
     private JTextField nameField, emailField, phoneField;
     private JButton submitButton;
@@ -105,8 +109,7 @@ public class CRMForm extends JFrame {
         questionButton("Do you understand its advantages and disadvantages?" + ":");
         questionButton("Do you think this product would make a difference in your business?" + ":");
         questionButton("Would you refer this product to your business partners" + ":");
-        questionButton("Would you be willing to purchase this product in next 2 days? "+ ":");
-
+        questionButton("Would you be willing to purchase this product in the next 2 days? "+ ":");
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
@@ -117,13 +120,16 @@ public class CRMForm extends JFrame {
 
         add(buttonPanel, BorderLayout.SOUTH);
 
+        // Set the background color to dark orange
+        getContentPane().setBackground(new Color(255, 140, 0));
+
         setTitle("CRM Feedback Form");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
-    public void questionButton(String questionString){
+    public void questionButton(String questionString) {
         JPanel panel = new JPanel();
         JLabel question = new JLabel(questionString);
         JRadioButton yesButton = new JRadioButton("Yes");
@@ -139,4 +145,15 @@ public class CRMForm extends JFrame {
         add(panel);
     }
 
+    public static void main(String[] args) {
+        // Simulate a list of users
+        List<User> userList = new ArrayList<>();
+
+        // Create an instance of CRMForm
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new CRMForm(userList, null);
+            }
+        });
+    }
 }

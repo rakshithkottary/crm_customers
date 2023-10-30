@@ -18,7 +18,25 @@ public class AdminPage extends JFrame {
         this.viewCustomerList = new ArrayList<>(viewCustomerList);
         this.landingPage = landingPage;
 
-        JPanel panel = new JPanel();
+
+        JPanel panel = new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                setBackground(new Color(255, 140, 0)); // Dark orange color
+            }
+        };
+        panel.setOpaque(true);
+
+        // Add a heading using JLabel
+        JLabel headingLabel = new JLabel("UIC MED REP");
+        headingLabel.setFont(new Font("Arial", Font.BOLD, 30)); // You can adjust the font and size
+        headingLabel.setHorizontalAlignment(JLabel.CENTER); // Center align the heading
+
+        // Add the heading to the panel
+        panel.add(headingLabel);
+
+
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JPanel inputPanel = new JPanel();
@@ -40,7 +58,11 @@ public class AdminPage extends JFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        JButton addButton = new JButton("Add Customer");
+        ImageIcon addIcon = new ImageIcon("C:/Users/sambr/Downloads/icons8-add-30.png"); // Provide the path to your add icon
+        ImageIcon updateIcon = new ImageIcon("C:/Users/sambr/Downloads/icons8-update-30.png"); // Provide the path to your update icon
+        ImageIcon deleteIcon = new ImageIcon("C:/Users/sambr/Downloads/icons8-delete-30.png");
+
+        JButton addButton = new JButton(addIcon);
         addButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String name = nameField.getText();
@@ -55,7 +77,9 @@ public class AdminPage extends JFrame {
             }
         });
 
-        JButton updateButton = new JButton("Update Customer");
+
+
+        JButton updateButton = new JButton(updateIcon);
         updateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
@@ -73,7 +97,7 @@ public class AdminPage extends JFrame {
             }
         });
 
-        JButton deleteButton = new JButton("Delete Customer");
+        JButton deleteButton = new JButton(deleteIcon);
         deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
