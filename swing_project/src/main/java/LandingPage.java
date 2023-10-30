@@ -7,12 +7,14 @@ import java.util.List;
 
 public class LandingPage extends JFrame {
     private List<User> userList;
+    private List<User> adminList;
 
-    public LandingPage(List<User> userList) {
+    public LandingPage(List<User> userList, List<User> adminList) {
         this.userList = userList;
+        this.adminList = adminList;
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
         JButton customerButton = new JButton("Are you a Customer?");
         customerButton.addActionListener(new ActionListener() {
@@ -29,7 +31,7 @@ public class LandingPage extends JFrame {
                 String inputPassword = JOptionPane.showInputDialog(LandingPage.this, "Enter Password:");
                 if (inputName != null && inputPassword != null && inputName.equals("admin") && inputPassword.equals("admin")) {
                     LandingPage.this.setVisible(false); // Hide the landing page
-                    AdminPage adminPage = new AdminPage(new ArrayList<>(userList),userList, LandingPage.this); // Pass the userList, separate list, and LandingPage instance to AdminPage
+                    AdminPage adminPage = new AdminPage(adminList,userList, LandingPage.this); // Pass the userList, separate list, and LandingPage instance to AdminPage
                 } else {
                     JOptionPane.showMessageDialog(LandingPage.this, "Invalid username or password!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -44,15 +46,5 @@ public class LandingPage extends JFrame {
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        List<User> userList = Main.getUserList(); // Access the shared user list from the Main class
-
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new LandingPage(userList);
-            }
-        });
     }
 }
