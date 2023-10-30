@@ -98,11 +98,11 @@ public class CRMForm extends JFrame {
         add(phoneField);
         add(questionLabel);
 
-        questionButton("Question 1 :");
-        questionButton("Question 2 :");
-        questionButton("Question 3 :");
-        questionButton("Question 4 :");
-        questionButton("Question 5 :");
+        questionButton("Do you understand our product , its ingredients?" + ":");
+        questionButton("Do you understand its advantages and disadvantages?" + ":");
+        questionButton("Do you think this product would make a difference in your business?" + ":");
+        questionButton("Would you refer this product to your business partners" + ":");
+        questionButton("Would you be willing to purchase this product in next 2 days? "+ ":");
 
 
         JPanel buttonPanel = new JPanel();
