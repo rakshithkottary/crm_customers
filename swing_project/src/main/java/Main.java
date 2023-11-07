@@ -1,22 +1,31 @@
+// Import necessary libraries for data structures
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+    // Shared user list across the application
+    private static List<User> userList = new ArrayList<>();
+
+    // Shared admin list across the application
+    private static List<User> adminList = new ArrayList<>();
+
     public static void main(String[] args) {
-        List<User> userList = new ArrayList<>();
-
-        // Creating an instance of CRMForm
+        // Ensuring that the GUI creation happens on the Event Dispatch Thread
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                new CRMForm(userList);
+                // Creating and initializing an instance of LandingPage
+                new LandingPage(userList, adminList);
             }
         });
+    }
 
-        // Creating an instance of AdminPage
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new AdminPage(userList);
-            }
-        });
+    // Getter method to retrieve the user list
+    public static List<User> getUserList() {
+        return userList;
+    }
+
+    // Getter method to retrieve the admin list
+    public static List<User> getAdminList() {
+        return adminList;
     }
 }
