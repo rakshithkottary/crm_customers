@@ -49,4 +49,23 @@ public class UserController {
             return new ResponseEntity<>("Error adding or updating user", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/{email}")
+    public ResponseEntity<String> deleteUserByEmail(@PathVariable String email) {
+        try {
+            // Check if the user exists
+            Optional<User> existingUser = userRepository.findByEmail(email);
+
+            if (existingUser.isPresent()) {
+                // Delete the user
+                userRepository.delete(existingUser.get());
+                return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error deleting user", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
