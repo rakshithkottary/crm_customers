@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 // Class representing a User entity
 class User {
     // Private member variables for user details
@@ -6,14 +9,53 @@ class User {
     private String phone;
     private String status;
     private String comment;
+    private List<String> purchasedProducts;
+    private String userCode;
 
-    // Constructor to initialize a User object with given details
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public List<String> getFeedbackAnswers() {
+        return feedbackAnswers;
+    }
+
+    public void setFeedbackAnswers(List<String> feedbackAnswers) {
+        this.feedbackAnswers = feedbackAnswers;
+    }
+
+    private String customerType;
+    private List<String> feedbackAnswers;
+
+    public String getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
+    }
+
+    // Constructor including the purchased products
     public User(String name, String email, String phone, String status, String comment) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.status = status;
         this.comment = comment;
+        this.purchasedProducts = new ArrayList<>();
+    }
+
+    // Getter for purchasedProducts
+    public List<String> getPurchasedProducts() {
+        return purchasedProducts;
+    }
+
+    public void setPurchasedProducts(List<String> purchasedProducts) {
+        this.purchasedProducts = purchasedProducts;
     }
 
     // Getter method for the comment attribute
@@ -33,7 +75,7 @@ class User {
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", status='" + status + '\'' +
+                ", customerType='" + customerType + '\'' +
                 '}';
     }
 
