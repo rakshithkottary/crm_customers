@@ -22,4 +22,14 @@ public class Utility {
         // Regular expression to match a 10-digit phone number
         return phone.matches("\\d{10}");
     }
+
+    // Automatically generate a unique user code
+    public static String generateUniqueCode() {
+        // Implement your logic to generate a unique alphanumeric code
+        // For example, you can use UUID or any custom logic
+        // For simplicity, let's use a placeholder here
+        int randomNumber = (int) (Math.random() * 99999) + 10000;
+        //return "UC_" + System.currentTimeMillis();
+        return "UC_" + randomNumber;
+    }
 }

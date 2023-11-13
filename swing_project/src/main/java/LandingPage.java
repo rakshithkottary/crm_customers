@@ -31,7 +31,7 @@ public class LandingPage extends JFrame {
         topPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         // Label for the heading
-        JLabel headingLabel = new JLabel("WELCOME TO UIC MED SALES");
+        JLabel headingLabel = new JLabel("Welcome to UI Computer Sales");
         headingLabel.setFont(new Font("Serif", Font.BOLD, 40));
         headingLabel.setForeground(Color.white); // Set the text color to white
         topPanel.add(headingLabel);
@@ -96,7 +96,7 @@ public class LandingPage extends JFrame {
         public BackgroundPanel() {
             try {
                 // Load the background image
-                background = ImageIO.read(new File("resources/images/UI background.jpg"));
+                background = ImageIO.read(new File("resources/images/hardware sales2.jpg"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
