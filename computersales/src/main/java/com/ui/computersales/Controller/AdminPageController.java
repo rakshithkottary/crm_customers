@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +25,33 @@ public class AdminPageController {
         this.userRepository = userRepository;
     }
 
+//    @GetMapping
+//    public String showAdminPage(Model model) {
+//        Iterable<User> allUsers = userRepository.findAll();
+//        model.addAttribute("allUsers", allUsers);
+//        model.addAttribute("newUser", new User());
+//        return "adminPage";
+//    }
+
     @GetMapping
-    public String showAdminPage(Model model) {
-        Iterable<User> allUsers = userRepository.findAll();
+    public String showAdminPage(Model model, @RequestParam(name = "searchUser", required = false) String searchUser) {
+        Iterable<User> allUsers;
+        if (searchUser != null) {
+            // Implement logic to retrieve user by userCode and add it to the model
+            User searchedUser = userRepository.findByUserCode(searchUser);
+            if (searchedUser != null) {
+                allUsers = Collections.singletonList(searchedUser);
+            } else {
+                allUsers = Collections.emptyList();
+            }
+        } else {
+            allUsers = userRepository.findAll();
+        }
         model.addAttribute("allUsers", allUsers);
         model.addAttribute("newUser", new User());
         return "adminPage";
     }
+
 
     @PostMapping("/addUser")
     public String addUser(@ModelAttribute User newUser) {
@@ -96,6 +117,29 @@ public class AdminPageController {
 
         return "dashboard";
     }
+
+    @GetMapping("/clearSearch")
+    public String clearSearch() {
+        return "redirect:/adminPage";
+    }
+
+//    @GetMapping("/searchUser")
+//    public String searchUser(@RequestParam String userCode, Model model) {
+//        User searchedUser = userRepository.findByUserCode(userCode);
+//
+//        // Check if the user with the specified userCode exists
+//        if (searchedUser != null) {
+//            List<User> allUsers = userRepository.findAll();
+//            model.addAttribute("allUsers", allUsers);
+//            model.addAttribute("newUser", new User());
+//            model.addAttribute("searchedUser", searchedUser); // Add the searched user to the model
+//        } else {
+//            // If the user with the specified userCode is not found, display a message
+//            model.addAttribute("searchErrorMessage", "User with User Code " + userCode + " not found.");
+//        }
+//
+//        return "adminPage"; // Return the adminPage.html view
+//    }
 
     private Map<String, Long> getCustomerTypeCounts() {
         List<User> allUsers = userRepository.findAll();
