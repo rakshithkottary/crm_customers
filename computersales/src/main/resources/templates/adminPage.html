@@ -48,6 +48,14 @@
     <button type="submit">Add User</button>
 </form>
 
+<!-- Search User Form -->
+<form th:action="@{/adminPage}" method="get">
+    <label for="searchUser">Search User by User Code:</label>
+    <input type="text" name="searchUser" id="searchUser" required />
+    <button type="submit">Search</button>
+    <a th:href="@{/adminPage}" class="clear-search">Clear Search</a>
+</form>
+
 <!-- View Customers Button -->
 <form th:action="@{adminPage/viewCustomers}" method="get" target="_blank">
     <button type="submit">View Customers</button>
