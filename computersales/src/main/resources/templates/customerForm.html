@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Customer Form</title>
+</head>
+
+<body>
+<h2>Customer Form</h2>
+
+<form th:action="@{/customerForm}" th:object="${user}" method="post">
+
+    <!-- User Details -->
+    <label for="name">Name:</label>
+    <input type="text" th:field="*{name}" id="name" required />
+    <br />
+
+    <label for="email">Email:</label>
+    <input type="email" th:field="*{email}" id="email" required />
+    <br />
+
+    <label for="phone">Phone:</label>
+    <input type="text" th:field="*{phone}" id="phone" required />
+    <br />
+
+    <!-- Ratings for Questions -->
+    <label>Question 1</label>
+    <br />
+    <label>
+        <input type="radio" th:field="*{ratings[0]}" th:value="1" /> 1
+        <input type="radio" th:field="*{ratings[0]}" th:value="2" /> 2
+        <input type="radio" th:field="*{ratings[0]}" th:value="3" /> 3
+        <input type="radio" th:field="*{ratings[0]}" th:value="4" /> 4
+        <input type="radio" th:field="*{ratings[0]}" th:value="5" /> 5
+    </label>
+    <br />
+
+    <!-- Ratings for Questions -->
+    <label>Question 2</label>
+    <br />
+    <label>
+        <input type="radio" th:field="*{ratings[1]}" th:value="1" /> 1
+        <input type="radio" th:field="*{ratings[1]}" th:value="2" /> 2
+        <input type="radio" th:field="*{ratings[1]}" th:value="3" /> 3
+        <input type="radio" th:field="*{ratings[1]}" th:value="4" /> 4
+        <input type="radio" th:field="*{ratings[1]}" th:value="5" /> 5
+    </label>
+    <br />
+    <!-- Ratings for Questions -->
+    <label>Question 3</label>
+    <br />
+    <label>
+        <input type="radio" th:field="*{ratings[2]}" th:value="1" /> 1
+        <input type="radio" th:field="*{ratings[2]}" th:value="2" /> 2
+        <input type="radio" th:field="*{ratings[2]}" th:value="3" /> 3
+        <input type="radio" th:field="*{ratings[2]}" th:value="4" /> 4
+        <input type="radio" th:field="*{ratings[2]}" th:value="5" /> 5
+    </label>
+    <br />
+    <!-- Ratings for Questions -->
+    <label>Question 4</label>
+    <br />
+    <label>
+        <input type="radio" th:field="*{ratings[3]}" th:value="1" /> 1
+        <input type="radio" th:field="*{ratings[3]}" th:value="2" /> 2
+        <input type="radio" th:field="*{ratings[3]}" th:value="3" /> 3
+        <input type="radio" th:field="*{ratings[3]}" th:value="4" /> 4
+        <input type="radio" th:field="*{ratings[3]}" th:value="5" /> 5
+    </label>
+    <br />
+    <!-- Ratings for Questions -->
+    <label>Question 5</label>
+    <br />
+    <label>
+        <input type="radio" th:field="*{ratings[4]}" th:value="1" /> 1
+        <input type="radio" th:field="*{ratings[4]}" th:value="2" /> 2
+        <input type="radio" th:field="*{ratings[4]}" th:value="3" /> 3
+        <input type="radio" th:field="*{ratings[4]}" th:value="4" /> 4
+        <input type="radio" th:field="*{ratings[4]}" th:value="5" /> 5
+    </label>
+    <br />
+
+    <!-- Question about the type of device (checkboxes) -->
+    <label>Type of Device:</label>
+    <br />
+    <label>
+        <input type="checkbox" th:field="*{purchasedProducts}" th:value="Mouse" /> Mouse
+    </label>
+    <label>
+        <input type="checkbox" th:field="*{purchasedProducts}" th:value="Monitor" /> Monitor
+    </label>
+    <label>
+        <input type="checkbox" th:field="*{purchasedProducts}" th:value="Keyboard" /> Keyboard
+    </label>
+    <label>
+        <input type="checkbox" th:field="*{purchasedProducts}" th:value="Cable" /> Cable
+    </label>
+    <label>
+        <input type="checkbox" th:field="*{purchasedProducts}" th:value="Speaker" /> Speaker
+    </label>
+    <br />
+
+    <!-- Submit Button -->
+    <button type="submit">Submit</button>
+
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.background-panel {
+    background-image: url('/images/hardware_sales2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Serif', sans-serif;
+}
+
+.top-panel {
+    margin-bottom: 20px;
+}
+
+.center-panel {
+    display: flex;
+    gap: 20px;
+}
