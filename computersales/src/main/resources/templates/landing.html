@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+</head>
+<body>
+<div th:fragment="backgroundPanel" class="background-panel">
+    <div class="top-panel">
+        <h1>Welcome to UI Computer Sales</h1>
+    </div>
+    <div class="center-panel">
+        <a th:href="@{/customer}" class="btn btn-primary">I am a customer</a>
+        <a th:href="@{/admin}" class="btn btn-secondary">I am an admin</a>
+    </div>
+</div>
+</body>
+</html>

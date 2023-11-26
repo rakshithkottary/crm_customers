@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .charts-container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .chart {
+            width: 45%; /* Adjust as needed */
+        }
+    </style>
+</head>
+
+<body>
+<h2>Dashboard</h2>
+
+<div class="charts-container">
+    <!-- Customer Distribution Chart -->
+    <div class="chart">
+        <h3>Customer Distribution</h3>
+        <canvas id="customerDistributionChart" width="400" height="400"></canvas>
+    </div>
+
+    <!-- Product Counts Chart -->
+    <div class="chart">
+        <h3>Product Counts</h3>
+        <canvas id="productCountsChart" width="400" height="400"></canvas>
+    </div>
+</div>
+
+<script th:inline="javascript">
+        /*<![CDATA[*/
+
+        var customerDistributionData = /*[[${customerTypeCounts}]]*/ {};
+        var productCountsData = /*[[${productCounts}]]*/ {};
+
+        // Customer Distribution Chart
+        var customerDistributionCanvas = document.getElementById('customerDistributionChart').getContext('2d');
+        var customerDistributionChart = new Chart(customerDistributionCanvas, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(customerDistributionData),
+                datasets: [{
+                    data: Object.values(customerDistributionData),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)'
+                    ]
+                }]
+            }
+        });
+
+        // Product Counts Chart
+        var productCountsCanvas = document.getElementById('productCountsChart').getContext('2d');
+        var productCountsChart = new Chart(productCountsCanvas, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(productCountsData),
+                datasets: [{
+                    data: Object.values(productCountsData),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)'
+                    ]
+                }]
+            }
+        });
+
+        /*]]>*/
+    </script>
+</body>
+
+</html>

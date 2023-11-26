@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Admin Page</title>
+    <style>
+        .editable {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".editable").click(function () {
+                var field = $(this).data("field");
+                var userId = $(this).closest("tr").data("id");
+                var value = prompt("Enter new value for " + field);
+                if (value != null) {
+                    $.post("/adminPage/updateUserField", { userId: userId, field: field, value: value }, function (data) {
+                        alert(data);
+                        location.reload(); // Refresh the page after updating the field
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+<h2>Admin Page</h2>
+
+<!-- Add User Form -->
+<form th:action="@{/adminPage/addUser}" th:object="${newUser}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" th:field="*{name}" id="name" required />
+    <br />
+    <label for="email">Email:</label>
+    <input type="email" th:field="*{email}" id="email" required />
+    <br />
+    <label for="phone">Phone:</label>
+    <input type="text" th:field="*{phone}" id="phone" required />
+    <br />
+    <label for="expense">Expense:</label>
+    <input type="text" th:field="*{expense}" id="expense" required />
+    <br />
+    <button type="submit">Add User</button>
+</form>
+
+<!-- View Customers Button -->
+<form th:action="@{adminPage/viewCustomers}" method="get" target="_blank">
+    <button type="submit">View Customers</button>
+</form>
+
+<!-- View Dashboard Button -->
+<form th:action="@{/adminPage/dashboard}" method="get" target="_blank">
+    <button type="submit">View Dashboard</button>
+</form>
+
+<!-- User Table -->
+<table border="1">
+    <thead>
+    <tr>
+        <th>User Code</th>
+        <th class="editable" data-field="name">Name</th>
+        <th class="editable" data-field="email">Email</th>
+        <th class="editable" data-field="phone">Phone</th>
+        <th class="editable" data-field="expense">Expense</th>
+        <th>Comment</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${allUsers}" th:if="${user.userCode}" th:attr="data-id=${user.id}">
+        <td th:text="${user.userCode}"></td>
+        <td class="editable" data-field="name" th:text="${user.name}"></td>
+        <td class="editable" data-field="email" th:text="${user.email}"></td>
+        <td class="editable" data-field="phone" th:text="${user.phone}"></td>
+        <td class="editable" data-field="expense" th:text="${user.expense}"></td>
+        <td th:text="${user.comment}"></td>
+        <td>
+            <a th:href="'/adminPage/deleteUser/' + ${user.id}" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Back to Landing Page Button -->
+<form action="/" method="get">
+    <button type="submit">Back to Landing Page</button>
+</form>
+</body>
+
+</html>
